@@ -1,0 +1,78 @@
+<% if( user.staff != "true") { %>
+<script>window.onload = ()=>{
+window.location.href = "/";
+}
+</script>
+<% } %>
+<%- include("../partials/head") %>
+<%- include("../partials/staffnavbar") %>
+<div class="container p">
+<h3><%= user.username %> Dashboard</h3>
+<div class="card">
+ <div class="card-body">
+ <form method="POST" enctype="multipart/form-data" action="/add/blog/staff/<%= user._id %>">
+   <label>Başlık</label>  
+   <input type="text" class="form-control" id="title" name="title">
+   <label>Açıklama</label><br>
+   <textarea id="description" class="form-control" name="description"></textarea>
+   <label>Fotoğraf</label>
+  <input class="form-control" type="file" class="form-control-file" name="uploaded_file"><br> 
+  <input type="submit" class="btn btn-dark">
+ </form>  
+ </div>
+</div>
+  <% blog.forEach( blog => { %>
+  <div class="card m-t">
+  <div class="card-body">  
+  <div class="row">
+  <div class="col-md-2">
+  <img src="/uploads/<%= blog.photo %>" width="100%">
+  </div>
+  <div class="col-md-10">
+  <h4><%= blog.title %></h4>
+  </div>
+  </div>
+  <div id="<%= blog._id %>">
+  <form method="POST" action="/staff/remove/blog/<%= blog._id %>" style="float:left">
+    <button class="btn text-danger" type="submit"><i class="fal fa-trash-alt"></i> Sil</button>
+    </form><a href="/staff/dashboard/edit-blog/<%= blog._id %>"><button class="btn"><i class="fal fa-edit"></i> Düzenle</button></a>
+    </div>
+    <button class="butnn" onclick="open<%= blog._id %>()">
+<i class="fal fa-ellipsis-v"></i>
+    </button>
+    <script>
+      var click = false;
+      
+     function open<%= blog._id %>(){
+      if(click == false){
+       document.getElementById("<%= blog._id %>").style.display = "block"
+       click = true;
+      } else {
+      document.getElementById("<%= blog._id %>").style.display = "none"
+      click = false;
+      }
+     }
+        
+    </script>
+  <% }) %>
+</div>
+</div>
+</div>
+<script>
+
+var settings = <% blog.forEach(blog=>{%>[document.getElementById("<%= blog.id %>"),]<% }) %>    
+window.onload = ()=>{
+  for(let i=0;i<settings.length;i++){
+    settings[i].style.display = "none";
+  }
+}
+</script>
+    
+    <style>
+      .butnn{
+        border:none;
+        position:relative;
+        left:100%;
+        top:-11vh;
+      }
+    </style>
