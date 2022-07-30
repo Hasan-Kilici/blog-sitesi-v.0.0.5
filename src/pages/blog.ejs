@@ -1,0 +1,26 @@
+<%- include("../partials/head") %>
+<%- include("../partials/navbar") %>
+<% if(user.staff == "true"){ %>
+  <script>
+  
+  </script>
+<% } %>
+<% if(user.admin == "false"){ %>
+  <script>
+  window.onload = ()=>{
+    
+  }
+  </script>
+<% } %>
+<div class="container">
+  <center>
+  <img src="/uploads/<%= blog.photo %>">
+  <h3><%= blog.title %></h3>
+  <pre><%= blog.description %></pre>
+  <% blogpart.forEach(blogpart =>{ %>
+  <img src="/uploads/<%= blogpart.photo %>">
+  <h3><%= blogpart.title %></h3>
+  <pre><%= blogpart.description %>
+  <% }) %>
+  </center>
+</div>
