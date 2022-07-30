@@ -1,0 +1,28 @@
+<%- include("../partials/head") %>
+<%- include("../partials/staffnavbar") %>
+<div class="container">
+ <div class="card m-t">
+   <div class="card-body">
+     <h2><%= blog.title %></h2>
+     <pre><%= blog.description %></pre>
+   </div>
+  </div>  
+  <div class="card m-t">
+   <div class="card-body">
+     <h2>Parça ekle</h2>
+   <form method="POST" enctype="multipart/form-data" action="/staff/add-part/blog/<%= blog._id %>">
+   <label>Başlık</label>
+   <input class="form-control" type="text" id="title" name="title">
+   <label>Açıklama</label><br>
+   <textarea id="description" class="form-control" name="description"></textarea>
+   <label>Fotoğraf</label>
+   <input class="form-control" type="file" class="form-control-file" name="uploaded_file"><br> 
+   <input type="submit" class="btn btn-dark">
+   </form>
+    </div>  
+  </div>
+  <h3>Parçalar</h3>
+     <% blogpart.forEach( blogpart => { %>
+       <%= blogpart.title %>
+    <% }) %>
+</div>
